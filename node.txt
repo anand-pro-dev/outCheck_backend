@@ -1,0 +1,10 @@
+npm init -y 
+"type": "module",
+
+npm i -D nodemon 
+ "dev": "nodemon index.js"
+npm run dev
+
+
+
+npm install express mongoose dotenv cors body-parser
