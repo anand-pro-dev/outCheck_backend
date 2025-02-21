@@ -27,11 +27,11 @@ const registerUser = async (req, res) => {
     }
 // Handle file uploads
 const profilePicUrl = req.files?.profilePic
-  ? `${req.protocol}://${req.get('host')}/uploads/profiles/${req.files.profilePic[0].filename}`
+  ? `${req.protocol}://${req.get('host')}/uploads/images/${req.files.profilePic[0].filename}`
   : null;
 
 const selfIdentificationPicUrl = req.files?.selfIdentificationPic
-  ? `${req.protocol}://${req.get('host')}/uploads/profiles/${req.files.selfIdentificationPic[0].filename}`
+  ? `${req.protocol}://${req.get('host')}/uploads/images/${req.files.selfIdentificationPic[0].filename}`
   : null;
 
 
