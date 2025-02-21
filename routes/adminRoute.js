@@ -170,4 +170,39 @@ router.get('/properties', authenticateAdmin, async (req, res) => {
   }
 });
 
+
+
+// Get all properties using aggregation with lookup
+router.get('/getAllProperties',  async (req, res) => {
+  try {
+    const properties = await Property.aggregate([
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'vendorId',
+          foreignField: '_id',
+          as: 'vendorDetails'
+        }
+      },
+      { $unwind: '$vendorDetails' },
+      {
+        $project: {
+          title: 1,
+          description: 1,
+          price: 1,
+          location: 1,
+          images: 1,
+          status: 1,
+          'vendorDetails.name': 1,
+          'vendorDetails.email': 1
+        }
+      }
+    ]);
+    sendResponse(res, true, 'Properties fetched successfully.', properties);
+  } catch (error) {
+    sendResponse(res, false, 'Failed to fetch properties.', null, error.message);
+  }
+});
+
+
 module.exports = router;
